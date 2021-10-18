@@ -1,6 +1,6 @@
-## xDD Website
+## xDD Document Linking
 
-A prototype pretty interface to the xDD API
+A simple interface for linking terms in unstructured data by harnessing the power of xDD.
 
 ## Development workflow
 

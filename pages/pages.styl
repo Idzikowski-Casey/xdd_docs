@@ -1,0 +1,75 @@
+@require "../styles/colors.styl"
+
+h1, h4
+    margin 0
+    padding 0
+
+body
+    background-color $primary-dark
+    display flex
+    justify-content center
+    align-items center
+    font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+    //min-height 80vw
+
+.landing-search
+    color $white
+    display flex 
+    flex-direction  column
+    justify-content center
+    min-height 80vh
+    max-height 100vh
+    min-width 75vw
+
+.xdd-title, .xdd-subtitle
+    margin-left 20px
+
+.xdd-title
+    font-size 70px
+    letter-spacing 4px
+
+.xdd-subtitle
+    text-transform uppercase
+    letter-spacing  3px
+    font-size 15px
+    margin-bottom 5px
+
+.main-search
+    border-radius 20px
+
+.list-container
+    display flex
+    align-items center
+    flex-direction column
+    height 90vh
+    overflow-y auto
+
+.pubcard
+    color $primary-dark
+    width 70vw
+    display flex
+    margin-top 10px
+    border-radius 10px
+    &:hover
+        color $secondary-dark
+
+.pub-title
+    font-weight bold
+    width 65vw
+    font-size 18px
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+
+.journal, .doi
+    color $gray
+    font-style italic
+
+.list 
+    list-style none
+    margin 0
+    padding 0
+
+::-webkit-scrollbar 
+    width 0  /* Remove scrollbar space */
+    background transparent  /* Optional: just make scrollbar invisible */
