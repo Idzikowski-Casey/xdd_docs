@@ -178,4 +178,4 @@ const ResultView = (props) => {
   );
 };
 
-export { ResultView };
+export { ResultView, SnippetResults };

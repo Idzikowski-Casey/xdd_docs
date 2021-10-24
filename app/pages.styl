@@ -1,0 +1,201 @@
+@require "../styles/colors.styl"
+
+h1, h4
+    margin 0
+    padding 0
+
+body
+    background-color $primary-dark
+    display flex
+    justify-content center
+    align-items center
+    font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+    margin 0;
+
+em.hl {
+  background-color: lighten($green5, 30%);
+  display inline-block
+  padding-left 0.2em
+  padding-right 0.2em
+  border-radius: 0.2em
+}
+
+ul {
+  list-style: none;
+}
+
+.landing-search, .linking-page
+    color $white
+    display flex 
+    flex-direction  column
+    justify-content center
+    max-height 100vh
+    min-width 100vw
+    margin-top 10px
+
+.landing-search  
+    padding 0 8em
+
+.back-arrow
+    color $white
+    position absolute
+    margin-left 5px
+    top 10px
+
+.xdd-title, .xdd-subtitle
+    margin-left 20px
+
+.xdd-title
+    font-size 70px
+    letter-spacing 4px
+
+.xdd-subtitle
+    text-transform uppercase
+    letter-spacing  3px
+    font-size 15px
+    margin-bottom 5px
+.paper-title
+    text-align center
+.main-search
+    border-radius 20px
+
+.list-container
+    margin-top 15px
+    display flex
+    align-items center
+    flex-direction column
+    overflow-y auto
+
+.tall
+    height 90vh
+.short
+    height 40vh
+
+.pubcard, .snippet-card
+    color $primary-dark
+    display flex
+    margin-top 10px
+    border-radius 10px
+.snippet-card
+    width 100%
+.pubcard
+    width 70vw
+    &:hover
+        color $secondary-dark
+
+.pub-title
+    font-weight bold
+    width 65vw
+    font-size 18px
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+
+.journal, .doi
+    color $gray
+    font-style italic
+
+.list 
+    list-style none
+    margin 0
+    padding 0
+
+.page-container
+    display flex
+    overflow hidden
+    position relative
+
+::-webkit-scrollbar 
+    width 0  /* Remove scrollbar space */
+    background transparent  /* Optional: just make scrollbar invisible */
+
+/// some animations for hiding and sliding the pages
+.visable
+    opacity 1
+    transition .6s margin ease, .4s opacity ease
+.visable-opacity
+    opacity 1
+    transition .4s opacity ease .1s, .1s margin ease 
+
+.hidden-left
+    position absolute
+    margin-top 100%
+    opacity 0
+    transition .4s opacity ease, .1s margin ease .4s
+ 
+.hidden-right
+    position absolute
+    margin 0 0 0 100%
+    transition .6s margin ease
+
+.known-terms
+.snippets-container {
+    width: 65vw;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left 10px
+}
+
+.known-terms
+    height 35vh
+
+.known-terms-list
+    display flex
+    flex-direction row
+    flex-wrap wrap
+    justify-content space-between
+    overflow-y auto
+
+
+.collapse-body
+    max-height 150px
+    width 80%
+    border-style solid
+    border-color $gray
+    border-radius 20px
+    border-width 1px
+    background-color $white
+    overflow-y auto
+
+.collapse-panel
+    padding 0
+    margin 0
+    margin-bottom 10px
+
+.term-tag
+    background-color $secondary-dark
+    color $white
+    width 90%
+    text-align center
+    margin 5px
+    &:hover
+        cursor pointer
+        background-color $middle-hue
+
+///////// reinventing the wheel for Collapse Panel b/c of next.js errors
+div.panel-heade
+  border-radius 6px
+  display flex
+  flex-direction row
+  &>*
+    &:last-child
+      margin-right 0
+  h1,h2,h3
+    margin-top 0
+    margin-bottom 0
+  div.expander
+    flex-grow 1
+
+.ms-header-button
+  .bp3-button.bp3-minimal
+    background-color $white
+    border-radius 20px  
+  .bp3-button-text
+    flex-grow: 1;
+    display: flex;
+  .bp3-button-text *
+    display: inline;
+  span.expander
+    flex-grow: 1;

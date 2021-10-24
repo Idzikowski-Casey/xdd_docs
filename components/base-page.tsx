@@ -4,7 +4,7 @@ import Nav from "./nav";
 import "./main.styl";
 
 // Stuff for basic UI setup
-import "core-js/stable";
+//import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import { FocusStyleManager } from "@blueprintjs/core";
