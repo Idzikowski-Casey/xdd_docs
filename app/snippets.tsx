@@ -8,7 +8,11 @@ const route = "https://xdd.wisc.edu/api/snippets";
 
 export function NoResults() {
   return (
-    <Callout intent="danger" title="No Results">{`Looks like there are no 
+    <Callout
+      intent="danger"
+      style={{ width: "95%" }}
+      title="No Results"
+    >{`Looks like there are no 
   snippets associated with term searched. Try another term by either clicking on a known term or typing one
   in yourself.`}</Callout>
   );
@@ -16,7 +20,15 @@ export function NoResults() {
 
 export function DefaultCallout({ title, description }) {
   return (
-    <Callout intent="primary" title={title}>
+    <Callout
+      intent="primary"
+      title={title}
+      style={{
+        width: "95%",
+        backgroundColor: "rgb(255,255,255, .9)",
+        color: "black",
+      }}
+    >
       {description}
     </Callout>
   );
@@ -24,7 +36,7 @@ export function DefaultCallout({ title, description }) {
 
 function NewTermCallout({ term, onClick }) {
   return (
-    <Callout intent="success" title="New term?">
+    <Callout intent="success" title="New term?" style={{ width: "95%" }}>
       It looks like you've entered a new term not in the known term set! Would
       you like to add <b>{term}</b> to the set?{" "}
       <Button intent="success" onClick={onClick}>
@@ -57,7 +69,6 @@ const ListRenderer = ({ highlights, term }) => {
   const isNewTerm = !isKnownTerm(term, state.known_terms);
 
   if (highlights.length == 0) return <NoResults />;
-  console.log(`Is ${term} new?`, isNewTerm);
 
   const onClick = () => {
     runAction({ type: "add_new_term", payload: { snippet_term: term } });
@@ -92,7 +103,6 @@ const isKnownTerm = (term, knownTerms) => {
   terms_.map((termss) => {
     terms = [...terms, ...termss];
   });
-  console.log(terms);
   terms = terms.map((term) => term.toLowerCase());
   term = term.toLowerCase();
 
@@ -106,11 +116,18 @@ function PageSnippets() {
   const [term, setTerm] = useState(snippet_term);
   const [snippets, setSnippets] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState(null);
+
   const onClick = async (snippets_term = term) => {
-    setLoading(true);
-    let data = await getSnippets({ docid, snippets_term });
-    setSnippets(data);
-    setLoading(false);
+    if (snippets_term == "") {
+      setSnippets(null);
+    } else {
+      setSearchTerm(snippets_term);
+      setLoading(true);
+      let data = await getSnippets({ docid, snippets_term });
+      setSnippets(data);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -119,6 +136,12 @@ function PageSnippets() {
       onClick(snippet_term);
     }
   }, [snippet_term]);
+
+  useEffect(() => {
+    if (term == "") {
+      setSnippets(null);
+    }
+  }, [term]);
 
   const onChange = (e) => {
     setTerm(e.target.value);
@@ -137,7 +160,7 @@ function PageSnippets() {
         {loading ? (
           <Spinner />
         ) : (
-          <ListRenderer highlights={snippets} term={term} />
+          <ListRenderer highlights={snippets} term={searchTerm} />
         )}
       </div>
     </div>

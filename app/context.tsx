@@ -20,6 +20,7 @@ type set_paper_title = { type: "set_paper_title"; payload: paper_title };
 type set_linked_terms = { type: "set_linked_terms"; payload: linked_terms };
 type remove_linked_term = { type: "remove_linked_term"; payload: index };
 type add_new_term = { type: "add_new_term"; payload: snippet_term };
+type reset_state = { type: "reset_state" };
 
 //////////////////// Union Actions ///////////////////////
 
@@ -30,8 +31,29 @@ type SyncAppActions =
   | set_paper_title
   | set_linked_terms
   | remove_linked_term
-  | add_new_term;
+  | add_new_term
+  | reset_state;
 type AsyncAppActions = fetch_known_terms;
+
+interface appCTX {
+  state: {};
+  runAction(action: SyncAppActions | AsyncAppActions): Promise<void>;
+}
+
+interface stateCTX {
+  docid: string;
+  known_terms: object;
+  snippet_term: string;
+  paper_title: string;
+  linked_terms: [][];
+}
+const defaultState: stateCTX = {
+  docid: "",
+  known_terms: {},
+  snippet_term: "",
+  paper_title: "",
+  linked_terms: [],
+};
 
 function useAppContextActions(dispatch) {
   // maybe state and action??
@@ -48,7 +70,7 @@ function useAppContextActions(dispatch) {
   };
 }
 
-const appReducer = (state = defualtState, action: SyncAppActions) => {
+const appReducer = (state = defaultState, action: SyncAppActions) => {
   switch (action.type) {
     case "set_docid":
       return {
@@ -104,38 +126,21 @@ const appReducer = (state = defualtState, action: SyncAppActions) => {
           known_terms: known_terms,
         };
       }
-
+    case "reset_state":
+      return {
+        ...defaultState,
+      };
     default:
       throw new Error("What does this mean?");
   }
 };
 
-interface appCTX {
-  state: {};
-  runAction(action: SyncAppActions | AsyncAppActions): Promise<void>;
-}
-
-interface stateCTX {
-  docid: string;
-  known_terms: object;
-  snippet_term: string;
-  paper_title: string;
-  linked_terms: [][];
-}
-const defualtState: stateCTX = {
-  docid: "",
-  known_terms: {},
-  snippet_term: "",
-  paper_title: "",
-  linked_terms: [],
-};
-
-const defaultContext = { state: defualtState, async runAction() {} };
+const defaultContext = { state: defaultState, async runAction() {} };
 
 const AppContext = createContext<appCTX>(defaultContext);
 
 function AppContextProvider(props) {
-  const [state, dispatch] = useReducer(appReducer, defualtState);
+  const [state, dispatch] = useReducer(appReducer, defaultState);
   const runAction = useAppContextActions(dispatch);
 
   useEffect(() => {

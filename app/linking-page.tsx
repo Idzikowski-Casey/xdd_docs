@@ -11,6 +11,7 @@ function BackArrow() {
 
   const onClick = () => {
     runAction({ type: "set_docid", payload: { docid: "" } });
+    runAction({ type: "reset_state" });
   };
 
   return (

@@ -17,6 +17,12 @@ function CollapsePanel({ isOpen = false, title, ...rest }) {
   const onClick = () => {
     setOpen(!open);
   };
+  const styles = {
+    backgroundColor: "white",
+    borderRadius: "20px",
+    width: "270px",
+    textOverflow: "ellipse",
+  };
 
   return (
     <div className="collapse-panel">
@@ -26,9 +32,7 @@ function CollapsePanel({ isOpen = false, title, ...rest }) {
           minimal={true}
           icon={icon}
           style={{
-            backgroundColor: "white",
-            borderRadius: "20px",
-            minWidth: "200px",
+            ...styles,
           }}
         >
           <h3>{title}</h3>

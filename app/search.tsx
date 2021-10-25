@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { InputGroup, Button, Card, Icon, Spinner } from "@blueprintjs/core";
 import axios from "axios";
 import { NoResults, DefaultCallout } from "./snippets";
@@ -140,6 +140,12 @@ function LandingSearch() {
       setData(null);
     }
   }
+
+  useEffect(() => {
+    if (inputValue == "") {
+      setData(null);
+    }
+  }, [inputValue]);
 
   return (
     <div className="landing-search">
