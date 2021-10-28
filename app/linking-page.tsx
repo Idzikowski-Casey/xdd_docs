@@ -5,6 +5,7 @@ import { KnownTerms } from "./terms";
 import { LinkageBin, LinkedTerms } from "./linking-components";
 import { AppContext } from ".";
 import "./page-layout.styl";
+import { PaperHeading } from "./paper-meta";
 
 function BackArrow() {
   const { state, runAction } = useContext(AppContext);
@@ -18,7 +19,6 @@ function BackArrow() {
     <Button
       icon="arrow-left"
       className="back-arrow"
-      style={{ color: "white" }}
       onClick={onClick}
       minimal={true}
     >
@@ -27,25 +27,18 @@ function BackArrow() {
   );
 }
 
-function PaperTitle() {
-  const { state, runAction } = useContext(AppContext);
-  const { paper_title } = state;
-
-  return <h1 className="paper-title">{paper_title}</h1>;
-}
-
 function LinkingPage() {
   return (
     <div className="linking-page">
-      <PaperTitle />
+      <PaperHeading />
       <BackArrow />
-      <div className="top">
+      <div className="page-content">
         <KnownTerms />
-        <LinkageBin />
-      </div>
-      <div className="bottom">
         <PageSnippets />
-        <LinkedTerms />
+        <div className="linked">
+          <LinkageBin />
+          <LinkedTerms />
+        </div>
       </div>
     </div>
   );

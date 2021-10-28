@@ -1,4 +1,4 @@
-import { Button, NonIdealState } from "@blueprintjs/core";
+import { Button, Card, NonIdealState } from "@blueprintjs/core";
 import React, { useState, useContext } from "react";
 import { TermCard } from "../terms";
 import { DndContainer } from "./drag";
@@ -38,9 +38,9 @@ function LinkageBin() {
   const props = { onDrop, id: "terms-container" };
   return (
     <div>
-      <h1>Linkage Bin</h1>
+      <h2>Linkage Bin</h2>
       <DndContainer {...props}>
-        <div className="linkage-bin">
+        <Card className="linkage-bin" elevation={1}>
           <div className="link-terms">
             {terms.length == 0 ? (
               <DefaultFill />
@@ -66,7 +66,7 @@ function LinkageBin() {
               Link these terms
             </Button>
           </div>
-        </div>
+        </Card>
       </DndContainer>
     </div>
   );

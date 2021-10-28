@@ -39,7 +39,7 @@ function SearchBar(props) {
   } = props;
   return (
     <InputGroup
-      style={{ borderRadius: "20px" }}
+      style={{ borderRadius: "10px", flex: "0" }}
       placeholder={placeholder}
       leftIcon="search"
       fill={true}
@@ -62,16 +62,19 @@ function PubCard({ pub }) {
 
   const onClick = () => {
     let docid = rest._gddid;
-    runAction({ type: "set_paper_title", payload: { paper_title: title } });
     runAction({ type: "set_docid", payload: { docid } });
   };
 
   return (
-    <Card className="pubcard" onClick={onClick} interactive={true}>
+    <Card
+      className="pubcard"
+      onClick={onClick}
+      interactive={true}
+      elevation={1}
+    >
       <Icon icon="book" style={{ marginTop: "5px", marginRight: "5px" }} />
       <div className="pub-info">
         <div className="pub-title">{title}</div>
-        {/* <Authors authorList={author} /> */}
         <div className="doi">{doi}</div>
         <div className="journal">{journal}</div>
       </div>
@@ -85,7 +88,7 @@ function RightElement({ onClick }) {
       minimal={true}
       icon="arrow-right"
       onClick={onClick}
-      style={{ borderTopRightRadius: "20px", borderBottomRightRadius: "20px" }}
+      style={{ borderTopRightRadius: "10px", borderBottomRightRadius: "10px" }}
     />
   );
 }

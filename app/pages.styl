@@ -5,10 +5,6 @@ h1, h4
     padding 0
 
 body
-    background-color $primary-dark
-    display flex
-    justify-content center
-    align-items center
     font-family "Helvetica Neue", Helvetica, Arial, sans-serif
     margin 0;
 
@@ -25,7 +21,7 @@ ul {
 }
 
 .landing-search, .linking-page
-    color $white
+    color $primary-dark
     display flex 
     flex-direction  column
     justify-content center
@@ -56,8 +52,8 @@ ul {
     margin-bottom 5px
 .paper-title
     text-align center
-.main-search
-    border-radius 20px
+    margin-bottom 0
+    font-size 25px
 
 .list-container
     margin-top 15px
@@ -75,13 +71,17 @@ ul {
     color $primary-dark
     display flex
     margin-top 10px
-    border-radius 10px
 .snippet-card
-    width 100%
+    width 93%
 .pubcard
     width 70vw
     &:hover
         color $secondary-dark
+
+.paper-meta
+    display flex
+    flex-direction column
+    align-items center
 
 .pub-title
     font-weight bold
@@ -98,7 +98,11 @@ ul {
 .list 
     list-style none
     margin 0
+    margin-bottom 15px
     padding 0
+    display flex
+    flex-direction column
+    align-items center
 
 .page-container
     display flex
@@ -130,33 +134,24 @@ ul {
 
 .known-terms
 .snippets-container {
-    width: 65vw;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-left 10px
 }
 
-.known-terms
-    height 35vh
+.snippets-container{
+    width: 90%;
+}
 
 .known-terms-list
-    display flex
-    flex-direction row
-    flex-wrap wrap
-    justify-content space-between
     overflow-y auto
-
+    height 75vh
 
 .collapse-body
     max-height 150px
+    align-items start
     width 80%
-    border-style solid
-    border-color $gray
-    border-radius 20px
-    border-width 1px
-    background-color $white
     overflow-y auto
 
 .collapse-panel
@@ -199,3 +194,6 @@ div.panel-heade
     display: inline;
   span.expander
     flex-grow: 1;
+
+.bp3-input-group.bp3-fill 
+    flex: 0 0 0;

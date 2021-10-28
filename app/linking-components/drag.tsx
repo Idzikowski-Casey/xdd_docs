@@ -7,6 +7,7 @@ export function DndContainer(props) {
     onDrop = (data) => console.log(data),
     id,
     data_id = "child_id",
+    style = {},
   } = props;
 
   const drop = (e) => {
@@ -21,14 +22,21 @@ export function DndContainer(props) {
   };
 
   return (
-    <div id={id} onDrop={drop} onDragOver={dragOver}>
+    <div id={id} onDrop={drop} onDragOver={dragOver} style={{ ...style }}>
       {children}
     </div>
   );
 }
 
 export function DndChild(props) {
-  const { children, id, data, draggable = true, data_id = "child_id" } = props;
+  const {
+    children,
+    id,
+    data,
+    draggable = true,
+    data_id = "child_id",
+    style = {},
+  } = props;
 
   const dragStart = (e) => {
     const target = e.target;
@@ -45,7 +53,7 @@ export function DndChild(props) {
     : {};
 
   return (
-    <div {...dragProps} className="drag-child">
+    <div {...dragProps} className="drag-child" style={{ ...style }}>
       {children}
     </div>
   );

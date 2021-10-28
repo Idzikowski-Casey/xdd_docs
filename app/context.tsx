@@ -1,22 +1,31 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import { fetchKnownTerms } from "./fetch";
+import { fetchKnownTerms, fetchPaperMetadata } from "./fetch";
 
 //////////////////////// types //////////////////////
 type docid = { docid: string };
 type known_terms = { known_terms: object[] };
 type snippet_term = { snippet_term: string };
-type paper_title = { paper_title: string };
+type title = { title: string };
+type doi = { doi: string };
+type url = { url: string };
+type journal = { journal: string };
+type publisher = { publisher: string };
+type year = { year: string };
+
+type paper = doi & url & journal & publisher & year & title;
+
 type linked_terms = { linked_terms: [][] };
 type index = { index: number };
 
 ///////////////////// Async Actions ///////////////////
 type fetch_known_terms = { type: "fetch_known_terms"; payload: docid };
+type fetch_paper_meta = { type: "fetch_paper_meta"; payload: docid };
 
 //////////////////// Sync Actions ////////////////////
 type set_known_terms = { type: "set_known_terms"; payload: known_terms };
 type set_docid = { type: "set_docid"; payload: docid };
 type set_snippet_term = { type: "set_snippet_term"; payload: snippet_term };
-type set_paper_title = { type: "set_paper_title"; payload: paper_title };
+type set_paper_meta = { type: "set_paper_meta"; payload: { paper: paper } };
 type set_linked_terms = { type: "set_linked_terms"; payload: linked_terms };
 type remove_linked_term = { type: "remove_linked_term"; payload: index };
 type add_new_term = { type: "add_new_term"; payload: snippet_term };
@@ -28,12 +37,12 @@ type SyncAppActions =
   | set_known_terms
   | set_docid
   | set_snippet_term
-  | set_paper_title
+  | set_paper_meta
   | set_linked_terms
   | remove_linked_term
   | add_new_term
   | reset_state;
-type AsyncAppActions = fetch_known_terms;
+type AsyncAppActions = fetch_known_terms | fetch_paper_meta;
 
 interface appCTX {
   state: {};
@@ -44,14 +53,21 @@ interface stateCTX {
   docid: string;
   known_terms: object;
   snippet_term: string;
-  paper_title: string;
+  paper: paper;
   linked_terms: [][];
 }
 const defaultState: stateCTX = {
   docid: "",
   known_terms: {},
   snippet_term: "",
-  paper_title: "",
+  paper: {
+    doi: null,
+    title: null,
+    url: null,
+    publisher: null,
+    journal: null,
+    year: null,
+  },
   linked_terms: [],
 };
 
@@ -63,6 +79,11 @@ function useAppContextActions(dispatch) {
         const docid = action.payload.docid;
         const known_terms = await fetchKnownTerms(docid);
         return dispatch({ type: "set_known_terms", payload: { known_terms } });
+      }
+      case "fetch_paper_meta": {
+        const docid = action.payload.docid;
+        const paper = await fetchPaperMetadata(docid);
+        return dispatch({ type: "set_paper_meta", payload: { paper } });
       }
       default:
         return dispatch(action);
@@ -88,10 +109,11 @@ const appReducer = (state = defaultState, action: SyncAppActions) => {
         ...state,
         snippet_term: action.payload.snippet_term,
       };
-    case "set_paper_title":
+    case "set_paper_meta":
+      console.log(action.payload);
       return {
         ...state,
-        paper_title: action.payload.paper_title,
+        paper: action.payload.paper,
       };
     case "set_linked_terms":
       let LinkedTerms = [...state.linked_terms, action.payload.linked_terms];
@@ -147,6 +169,10 @@ function AppContextProvider(props) {
     if (state.docid != "") {
       runAction({
         type: "fetch_known_terms",
+        payload: { docid: state.docid },
+      });
+      runAction({
+        type: "fetch_paper_meta",
         payload: { docid: state.docid },
       });
     }

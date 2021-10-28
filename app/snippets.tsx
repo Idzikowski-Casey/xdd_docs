@@ -25,8 +25,6 @@ export function DefaultCallout({ title, description }) {
       title={title}
       style={{
         width: "95%",
-        backgroundColor: "rgb(255,255,255, .9)",
-        color: "black",
       }}
     >
       {description}
@@ -48,7 +46,7 @@ function NewTermCallout({ term, onClick }) {
 
 const Highlight = ({ highlight }) => {
   return (
-    <Card className="snippet-card">
+    <Card className="snippet-card" elevation={1}>
       <li dangerouslySetInnerHTML={{ __html: highlight }} />;
     </Card>
   );
@@ -149,14 +147,14 @@ function PageSnippets() {
 
   return (
     <div className="snippets-container">
-      <h1 style={{ marginBottom: "5px" }}>Paper Snippets</h1>
+      <h2 style={{ marginBottom: "5px" }}>Paper Snippets</h2>
       <SearchBar
         initiateSearch={onClick}
         inputValue={term}
         placeholder="Search paper snippets by term"
         handleInputValueChange={onChange}
       />
-      <div className="list-container short">
+      <div className="list-container">
         {loading ? (
           <Spinner />
         ) : (

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Tag, NonIdealState } from "@blueprintjs/core";
+import { Tag, NonIdealState, Card } from "@blueprintjs/core";
 import { AppContext } from "..";
 
 function LinkedTermsTag({ terms, onRemove }) {
@@ -38,8 +38,8 @@ function LinkedTerms() {
 
   return (
     <div>
-      <h1>Linked Terms</h1>
-      <div className="linked-terms-container">
+      <h2>Linked Terms</h2>
+      <Card className="linked-terms-container">
         {linked_terms.length == 0 ? (
           <DefaultFill />
         ) : (
@@ -51,7 +51,7 @@ function LinkedTerms() {
             );
           })
         )}
-      </div>
+      </Card>
     </div>
   );
 }

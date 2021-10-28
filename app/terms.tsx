@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Tag, Collapse, Button } from "@blueprintjs/core";
+import { Tag, Collapse, Button, Icon } from "@blueprintjs/core";
 import { AppContext } from ".";
 import { DndChild } from "./linking-components";
 import "./pages.styl";
@@ -13,32 +13,31 @@ import "./pages.styl";
 function CollapsePanel({ isOpen = false, title, ...rest }) {
   const [open, setOpen] = useState(isOpen);
 
-  const icon = open ? "collapse-all" : "expand-all";
+  const icon = !open ? "chevron-right" : "chevron-down";
   const onClick = () => {
     setOpen(!open);
   };
+
   const styles = {
-    backgroundColor: "white",
-    borderRadius: "20px",
-    width: "270px",
-    textOverflow: "ellipse",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "baseline",
   };
 
   return (
-    <div className="collapse-panel">
-      <div className="panel-heade">
-        <Button
-          onClick={onClick}
-          minimal={true}
-          icon={icon}
-          style={{
-            ...styles,
-          }}
-        >
-          <h3>{title}</h3>
-          <span className="expander" />
-        </Button>
-      </div>
+    <div className="">
+      <Button
+        onClick={onClick}
+        minimal={true}
+        rightIcon={icon}
+        style={{
+          ...styles,
+        }}
+        className="button-text"
+      >
+        <p>{title}</p>
+      </Button>
       <Collapse isOpen={open}>{rest.children}</Collapse>
     </div>
   );
@@ -54,7 +53,7 @@ export function TermCard(props) {
   };
 
   return (
-    <DndChild id={`drag-child-${term}`} data={term}>
+    <DndChild id={`drag-child-${term}`} data={term} style={{ width: "100%" }}>
       <Tag
         onClick={onClick}
         round={true}
@@ -93,7 +92,7 @@ function KnownTerms() {
 
   return (
     <div className="known-terms">
-      <h1>Known Terms</h1>
+      <h2>Known Terms</h2>
       <div className="known-terms-list">
         {Object.entries(known_terms).map(([key, value], i) => {
           let termCategory = { [key]: value };
