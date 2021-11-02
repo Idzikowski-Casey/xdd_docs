@@ -15,15 +15,11 @@ function LinkedTermsTag({ terms, onRemove }) {
 }
 
 function DefaultFill() {
-  let des =
-    "Link terms by dragging a dropping terms into the above linkage bin";
+  let des = "Link terms by dragging a dropping terms into the linkage bin";
   return (
     <div className="non-ideal-state">
-      <NonIdealState
-        icon="arrow-up"
-        title="Link terms above!"
-        description={des}
-      />
+      <div style={{ marginBottom: "5vh" }} />
+      <NonIdealState title="Link terms!" description={des} />
     </div>
   );
 }
@@ -38,8 +34,7 @@ function LinkedTerms() {
 
   return (
     <div>
-      <h2>Linked Terms</h2>
-      <Card className="linked-terms-container">
+      <Card className="linked-terms-container" elevation={1}>
         {linked_terms.length == 0 ? (
           <DefaultFill />
         ) : (

@@ -20,6 +20,13 @@ ul {
   list-style: none;
 }
 
+.recent-terms-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding:2px;
+    height: 85px;
+}
 .landing-search, .linking-page
     color $primary-dark
     display flex 
@@ -31,12 +38,6 @@ ul {
 
 .landing-search  
     padding 0 8em
-
-.back-arrow
-    color $white
-    position absolute
-    margin-left 5px
-    top 10px
 
 .xdd-title, .xdd-subtitle
     margin-left 20px
@@ -50,10 +51,14 @@ ul {
     letter-spacing  3px
     font-size 15px
     margin-bottom 5px
-.paper-title
-    text-align center
-    margin-bottom 0
-    font-size 25px
+
+.paper-title{
+    font-size: 25px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 70vw;
+}
 
 .list-container
     margin-top 15px
@@ -140,8 +145,12 @@ ul {
     margin-left 10px
 }
 
+.known-terms
+    width 35vw
+
 .snippets-container{
     width: 90%;
+    height 70vh
 }
 
 .known-terms-list

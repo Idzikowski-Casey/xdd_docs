@@ -36,15 +36,17 @@ function SearchBar(props) {
     initiateSearch,
     handleInputValueChange,
     placeholder = "Enter a search term",
+    leftIcon = "search",
+    rightElement = <RightElement onClick={initiateSearch} />,
   } = props;
   return (
     <InputGroup
       style={{ borderRadius: "10px", flex: "0" }}
       placeholder={placeholder}
-      leftIcon="search"
+      leftIcon={leftIcon}
       fill={true}
       value={inputValue}
-      rightElement={<RightElement onClick={initiateSearch} />}
+      rightElement={rightElement}
       onChange={handleInputValueChange}
       onKeyPress={(event) => {
         if (event.key === "Enter") {

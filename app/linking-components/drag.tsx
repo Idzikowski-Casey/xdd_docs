@@ -35,7 +35,7 @@ export function DndChild(props) {
     data,
     draggable = true,
     data_id = "child_id",
-    style = {},
+    width = "40%",
   } = props;
 
   const dragStart = (e) => {
@@ -53,7 +53,7 @@ export function DndChild(props) {
     : {};
 
   return (
-    <div {...dragProps} className="drag-child" style={{ ...style }}>
+    <div {...dragProps} className={`drag-child`} style={{ width }}>
       {children}
     </div>
   );
