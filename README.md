@@ -1,6 +1,7 @@
 ## xDD Document Linking
 
-A simple interface for linking terms in unstructured data by harnessing the power of xDD.
+By harrnessing the power of [xDD](https://xdd.wisc.edu/api), this application allows users to
+link terms for a given paper. Through the interface a user can browse already tracked terms in xDD and search for new ones. Users can view existing and searched terms in paper context utilizing the snippets route of the xDD api. 
 
 ## Development workflow
 
