@@ -95,10 +95,35 @@ function RightElement({ onClick }) {
   );
 }
 
+function isLetter(char) {
+  if (char.toUpperCase() != char.toLowerCase()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export const isTitle = (search) => {
+  let i = 0;
+  for (let char of search) {
+    if (isLetter(char)) {
+      i += 1;
+    }
+  }
+  if (i / search.length > 0.7) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 async function get(searchString) {
   let route = `https://xdd.wisc.edu/api/articles`;
+  let params = isTitle(searchString)
+    ? { title_like: searchString, max: 20 }
+    : { doi: searchString, max: 20 };
   const res = await axios.get(route, {
-    params: { title_like: searchString, max: 20 },
+    params: { ...params },
   });
   return res["data"];
 }
@@ -106,12 +131,12 @@ async function get(searchString) {
 function ListRenderer({ data }) {
   let title = "Search publications";
   let des =
-    "Search the xDD database for a publication to get started. Simply type key words or phrases";
+    "Search the xDD database for a publication to get started. Search by terms, phrases, or DOI's.";
   if (data == null) return <DefaultCallout title={title} description={des} />;
   if (data.length == 0) return <NoResults />;
   return (
     <ul className="list">
-      {data.length > 1
+      {data.length > 0
         ? data.map((pub, i) => {
             return (
               <li key={i}>
@@ -159,6 +184,7 @@ function LandingSearch() {
         A Digitial assistant to extract knowledge from the published literature
       </h4>
       <SearchBar
+        placeholder="Search by term, phrase, or DOI"
         initiateSearch={initiateSearch}
         inputValue={inputValue}
         handleInputValueChange={handleInputValueChange}

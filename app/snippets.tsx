@@ -124,7 +124,7 @@ function NoRecentTerms() {
 function RecentTerms(props) {
   const { terms } = props;
   return (
-    <Card className="recent-terms-container">
+    <Card className="recent-terms-container" elevation={1}>
       {terms.length > 0 ? (
         terms.map((term, i) => {
           return <TermCard term={term} key={i} width="15%" />;
@@ -139,6 +139,7 @@ function RecentTerms(props) {
 function PageSnippets() {
   const { state } = useContext(AppContext);
   const { docid, snippet_term } = state;
+
   const [loading, setLoading] = useState(false);
   const [term, setTerm] = useState(snippet_term);
   const [snippets, setSnippets] = useState(null);

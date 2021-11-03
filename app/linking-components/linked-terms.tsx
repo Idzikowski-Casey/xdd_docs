@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Tag, NonIdealState, Card } from "@blueprintjs/core";
 import { AppContext } from "..";
+import { DownloadButton } from "./download";
 
 function LinkedTermsTag({ terms, onRemove }) {
   const [term1, term2] = terms;
@@ -38,13 +39,16 @@ function LinkedTerms() {
         {linked_terms.length == 0 ? (
           <DefaultFill />
         ) : (
-          linked_terms.map((terms, i) => {
-            return (
-              <li key={i}>
-                <LinkedTermsTag terms={terms} onRemove={() => onRemove(i)} />
-              </li>
-            );
-          })
+          <div>
+            {linked_terms.map((terms, i) => {
+              return (
+                <li key={i}>
+                  <LinkedTermsTag terms={terms} onRemove={() => onRemove(i)} />
+                </li>
+              );
+            })}
+            <DownloadButton />
+          </div>
         )}
       </Card>
     </div>
