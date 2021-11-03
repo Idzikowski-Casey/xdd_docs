@@ -4,3 +4,5 @@ services:
     build: .
     ports:
       - "1235:3000"
+    environment:
+      - BASE_PATH=xdd-linking
