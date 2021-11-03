@@ -4,24 +4,6 @@ const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
 });
 const withCoffeescript = require("next-coffeescript");
-const isProd = process.env.NODE_ENV === "production";
-
-function getBasePath() {
-  var basePath = "";
-
-  if (isProd && process.env.BASE_PATH) {
-    if (process.env.BASE_PATH.startsWith("/")) {
-      basePath = process.env.BASE_PATH;
-    } else {
-      basePath = "/" + process.env.BASE_PATH;
-    }
-  }
-
-  console.log("getBasePath() : isProd = " + isProd);
-  console.log("getBasePath() : basePath = " + basePath);
-
-  return basePath;
-}
 
 const cfg = {
   cssModules: false,
@@ -38,10 +20,10 @@ const cfg = {
     react: "node_modules/react",
     "react-dom": "node_modules/react-dom",
   },
-  assetPrefix: getBasePath(),
+  assetPrefix: process.env.BASE_PATH || "",
 
   publicRuntimeConfig: {
-    basePath: getBasePath(),
+    basePath: process.env.BASE_PATH || "",
   },
 };
 
