@@ -21,7 +21,7 @@ function PanelStack(props) {
         className={props.className}
         onOpen={addToPanelStack}
         onClose={removeFromPanelStack}
-        renderActivePanelOnly={true}
+        renderActivePanelOnly={props.renderActivePanelOnly || true}
         showPanelHeader={true}
         stack={currentStack}
       />

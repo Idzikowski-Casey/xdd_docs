@@ -38,10 +38,11 @@ function SearchBar(props) {
     placeholder = "Enter a search term",
     leftIcon = "search",
     rightElement = <RightElement onClick={initiateSearch} />,
+    style = { borderRadius: "10px", flex: "0" },
   } = props;
   return (
     <InputGroup
-      style={{ borderRadius: "10px", flex: "0" }}
+      style={{ ...style }}
       placeholder={placeholder}
       leftIcon={leftIcon}
       fill={true}

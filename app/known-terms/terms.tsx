@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Tag, Button } from "@blueprintjs/core";
 import { AppContext } from "..";
+import { SearchBar } from "../search";
 import { DndChild } from "../linking-components";
 import { PanelStack } from ".";
 import "./module.styl";
@@ -55,6 +56,11 @@ export function TermCard(props) {
     </DndChild>
   );
 }
+// get operator for object with defualt if undefined
+function get(object, key, default_value) {
+  var result = object[key];
+  return typeof result !== "undefined" ? result : default_value;
+}
 
 function filterTerms(terms, filter) {
   if (filter == "") return terms;
@@ -63,7 +69,9 @@ function filterTerms(terms, filter) {
   // known terms is a object of lists
   Object.entries(terms).map(([key, value], i) => {
     value.map((word) => {
-      word.toLowerCase().includes(filter);
+      if (word.toLowerCase().includes(filter.toLowerCase())) {
+        filteredTerms[key] = [...get(filteredTerms, key, []), word];
+      }
     });
   });
 
@@ -71,13 +79,30 @@ function filterTerms(terms, filter) {
 }
 
 function VocabPanel(props) {
-  const { state, runAction } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const { known_terms } = state;
   const { openPanel } = props;
 
+  const [search, setSearch] = useState("");
+  const [terms, setTerms] = useState(known_terms);
+  console.log(terms);
+
+  useEffect(() => {
+    setTerms(known_terms);
+  }, [known_terms]);
+
+  function handleInputValueChange(e) {
+    setSearch(e.target.value);
+  }
+
+  function initiateSearch() {
+    const filteredTerms = filterTerms(known_terms, search);
+    setTerms(filteredTerms);
+  }
+
   const openNewPanel = (selectedVocab) => {
     openPanel({
-      props: { selectedVocab },
+      props: { selectedVocab, terms },
       renderPanel: TermsPanel,
       title: selectedVocab,
     });
@@ -85,7 +110,13 @@ function VocabPanel(props) {
 
   return (
     <div className="known-terms-list">
-      {Object.entries(known_terms).map(([key, value], i) => {
+      <SearchBar
+        inputValue={search}
+        handleInputValueChange={handleInputValueChange}
+        initiateSearch={initiateSearch}
+        style={{ borderRadius: "0px" }}
+      />
+      {Object.entries(terms).map(([key, value], i) => {
         return (
           <VocabHeader key={i} title={key} onClick={() => openNewPanel(key)} />
         );
@@ -95,9 +126,7 @@ function VocabPanel(props) {
 }
 
 function TermsPanel(props) {
-  const { state, runAction } = useContext(AppContext);
-  const { known_terms } = state;
-  const { selectedVocab } = props;
+  const { selectedVocab, terms: known_terms } = props;
 
   const terms = known_terms[selectedVocab];
   if (!terms) return <div></div>;
@@ -119,27 +148,16 @@ const initialPanel = {
 };
 
 function KnownTerms() {
-  const { state, runAction } = useContext(AppContext);
-  const { known_terms } = state;
-
-  const [search, setSearch] = useState("");
-  const [terms, setTerms] = useState(known_terms);
-
-  function handleInputValueChange(e) {
-    setSearch(e.target.value);
-  }
-
-  function initiateSearch() {
-    const filteredTerms = filterTerms(known_terms, search);
-    setTerms(filterTerms);
-  }
-
   return (
     <div className="known-terms">
       <div>
         <h2>Known Terms</h2>
       </div>
-      <PanelStack initialPanel={initialPanel} className="terms-stack" />
+      <PanelStack
+        initialPanel={initialPanel}
+        renderActivePanelOnly={false}
+        className="terms-stack"
+      />
     </div>
   );
 }
