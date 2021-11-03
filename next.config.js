@@ -20,11 +20,8 @@ const cfg = {
     react: "node_modules/react",
     "react-dom": "node_modules/react-dom",
   },
-  assetPrefix: process.env.BASE_PATH || "",
 
-  publicRuntimeConfig: {
-    basePath: process.env.BASE_PATH || "",
-  },
+  basePath: process.env.BASE_PATH || "",
 };
 
 module.exports = withMDX(withCSS(withCoffeescript(withStylus(cfg))));

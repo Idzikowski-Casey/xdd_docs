@@ -13,4 +13,6 @@ COPY . .
 RUN npm run build
 WORKDIR /app/
 
+ENV BASE_PATH="/xdd-linking"
+
 ENTRYPOINT ["npm", "start"]
