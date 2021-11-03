@@ -16,7 +16,10 @@ function PanelStack(props) {
   );
 
   return (
-    <Card style={{ margin: "0", padding: "0" }}>
+    <Card
+      style={{ margin: "0", padding: "0" }}
+      elevation={props.elevation || 1}
+    >
       <PanelStack2
         className={props.className}
         onOpen={addToPanelStack}

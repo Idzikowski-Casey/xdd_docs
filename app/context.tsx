@@ -30,6 +30,7 @@ type set_linked_terms = { type: "set_linked_terms"; payload: linked_terms };
 type remove_linked_term = { type: "remove_linked_term"; payload: index };
 type add_new_term = { type: "add_new_term"; payload: snippet_term };
 type reset_state = { type: "reset_state" };
+type add_recent_term = { type: "add_recent_term"; payload: snippet_term };
 
 //////////////////// Union Actions ///////////////////////
 
@@ -41,20 +42,22 @@ type SyncAppActions =
   | set_linked_terms
   | remove_linked_term
   | add_new_term
-  | reset_state;
+  | reset_state
+  | add_recent_term;
 type AsyncAppActions = fetch_known_terms | fetch_paper_meta;
 
-interface appCTX {
+export interface appCTX {
   state: {};
   runAction(action: SyncAppActions | AsyncAppActions): Promise<void>;
 }
 
-interface stateCTX {
+export interface stateCTX {
   docid: string;
   known_terms: object;
   snippet_term: string;
   paper: paper;
   linked_terms: [][];
+  recent_terms: string[];
 }
 const defaultState: stateCTX = {
   docid: "",
@@ -69,6 +72,7 @@ const defaultState: stateCTX = {
     year: null,
   },
   linked_terms: [],
+  recent_terms: [],
 };
 
 function useAppContextActions(dispatch) {
@@ -151,6 +155,18 @@ const appReducer = (state = defaultState, action: SyncAppActions) => {
     case "reset_state":
       return {
         ...defaultState,
+      };
+    case "add_recent_term":
+      let term = action.payload.snippet_term;
+      let recentTerms = state.recent_terms;
+      let terms_ = new Set([...recentTerms, term]);
+      terms_ = [...terms_];
+      if (terms_.length > 6) {
+        terms_.shift();
+      }
+      return {
+        ...state,
+        recent_terms: terms_,
       };
     default:
       throw new Error("What does this mean?");

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Tag, Button } from "@blueprintjs/core";
-import { AppContext } from "..";
+import { AppContext, appCTX, stateCTX } from "..";
 import { SearchBar } from "../search";
 import { DndChild } from "../linking-components";
 import { PanelStack } from ".";
 import "./module.styl";
+import { RecentTerms } from "./recent";
 
 function VocabHeader({ isOpen = false, title, ...rest }) {
   const styles = {
@@ -79,8 +80,8 @@ function filterTerms(terms, filter) {
 }
 
 function VocabPanel(props) {
-  const { state } = useContext(AppContext);
-  const { known_terms } = state;
+  const { state } = useContext<appCTX>(AppContext);
+  const { known_terms }: Partial<stateCTX> = state;
   const { openPanel } = props;
 
   const [search, setSearch] = useState("");
@@ -153,6 +154,7 @@ function KnownTerms() {
       <div>
         <h2>Known Terms</h2>
       </div>
+      <RecentTerms />
       <PanelStack
         initialPanel={initialPanel}
         renderActivePanelOnly={false}

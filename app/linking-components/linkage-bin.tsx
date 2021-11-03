@@ -2,11 +2,18 @@ import { Button, Card, NonIdealState } from "@blueprintjs/core";
 import React, { useState, useContext } from "react";
 import { TermCard } from "../known-terms/terms";
 import { DndContainer } from "./drag";
-import { AppContext } from "..";
+import { AppContext, appCTX } from "..";
 import "./module.styl";
 
 function DefaultFill() {
-  return <NonIdealState icon="archive" title="Drag and drop terms" />;
+  let title = `Drag and drop terms to link`;
+  let des = `To link terms, drag 2 links into this bin from known or recent
+              terms.`;
+  return (
+    <div style={{ marginTop: "30px" }} className="non-ideal-state">
+      <NonIdealState icon="archive" title={title} description={des} />
+    </div>
+  );
 }
 
 /**
@@ -14,7 +21,7 @@ function DefaultFill() {
  * @returns droppable bin
  */
 function LinkageBin() {
-  const { state, runAction } = useContext(AppContext);
+  const { runAction } = useContext<appCTX>(AppContext);
   const [terms, setTerms] = useState([]);
 
   const onDrop = (data) => {
@@ -38,6 +45,7 @@ function LinkageBin() {
   const props = { onDrop, id: "terms-container" };
   return (
     <div>
+      <h2>Linkage Bin</h2>
       <DndContainer {...props}>
         <Card className="linkage-bin" elevation={1}>
           <div>
@@ -56,18 +64,18 @@ function LinkageBin() {
                     />
                   );
                 })}
-                <div className="link-btn">
-                  <Button
-                    intent="success"
-                    disabled={terms.length != 2}
-                    style={{ borderRadius: "20px" }}
-                    onClick={onLink}
-                  >
-                    Link these terms
-                  </Button>
-                </div>
               </div>
             )}
+          </div>
+          <div>
+            <Button
+              intent="success"
+              disabled={terms.length != 2}
+              style={{ borderRadius: "20px", margin: "10px" }}
+              onClick={onLink}
+            >
+              Link these terms
+            </Button>
           </div>
         </Card>
       </DndContainer>

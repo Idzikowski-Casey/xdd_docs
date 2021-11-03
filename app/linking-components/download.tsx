@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button } from "@blueprintjs/core";
-import { AppContext } from "..";
+import { AppContext, appCTX, stateCTX } from "..";
 
 function downloadObjectAsCSV(exportObj, exportName) {
   let csvContent =
@@ -15,8 +15,8 @@ function downloadObjectAsCSV(exportObj, exportName) {
 }
 
 function DownloadButton() {
-  const { state } = useContext(AppContext);
-  const { linked_terms } = state;
+  const { state } = useContext<appCTX>(AppContext);
+  const { linked_terms }: Partial<stateCTX> = state;
 
   const onClick = () => {
     if (linked_terms.length > 0) {
@@ -30,7 +30,7 @@ function DownloadButton() {
       icon="download"
       onClick={onClick}
       intent="primary"
-      style={{ borderRadius: "20px", marginTop: "10px" }}
+      style={{ borderRadius: "20px", margin: "10px" }}
       disabled={linked_terms.length == 0}
     >
       Download

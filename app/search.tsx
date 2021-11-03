@@ -38,7 +38,7 @@ function SearchBar(props) {
     placeholder = "Enter a search term",
     leftIcon = "search",
     rightElement = <RightElement onClick={initiateSearch} />,
-    style = { borderRadius: "10px", flex: "0" },
+    style = { flex: "0" },
   } = props;
   return (
     <InputGroup

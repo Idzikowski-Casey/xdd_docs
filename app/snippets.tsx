@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from ".";
+import { AppContext, appCTX, stateCTX } from ".";
 import axios from "axios";
 import { SearchBar } from "./search";
 import { Card, Callout, Spinner, Button } from "@blueprintjs/core";
-import { TermCard } from "./known-terms";
 
 const route = "https://xdd.wisc.edu/api/snippets";
 
@@ -54,18 +53,16 @@ const Highlight = ({ highlight }) => {
 };
 
 const ListRenderer = ({ highlights, term }) => {
-  const { state, runAction } = useContext(AppContext);
-  let description =
-    "Keyword search through the paper and see in context where the entered term is mentioned";
+  const { state, runAction } = useContext<appCTX>(AppContext);
+  const { known_terms }: Partial<stateCTX> = state;
+  let description = `Search for paper snippets by either clicking on a 
+     known term in the left panel or by keyword searching.`;
   if (highlights == null)
     return (
-      <DefaultCallout
-        title="Search paper snippets by term"
-        description={description}
-      />
+      <DefaultCallout title="No paper snippets" description={description} />
     );
 
-  const isNewTerm = !isKnownTerm(term, state.known_terms);
+  const isNewTerm = !isKnownTerm(term, known_terms);
 
   if (highlights.length == 0) return <NoResults />;
 
@@ -92,7 +89,9 @@ async function getSnippets(props) {
     },
   });
   let highlight = [];
+  //@ts-ignore
   if (res.data.success) {
+    //@ts-ignore
     res.data.success.data.map((dat) => {
       highlight = [...highlight, ...dat.highlight];
     });
@@ -104,6 +103,7 @@ const isKnownTerm = (term, knownTerms) => {
   let terms_ = Object.values(knownTerms);
   let terms = [];
   terms_.map((termss) => {
+    //@ts-ignore
     terms = [...terms, ...termss];
   });
   terms = terms.map((term) => term.toLowerCase());
@@ -112,59 +112,24 @@ const isKnownTerm = (term, knownTerms) => {
   return terms.includes(term);
 };
 
-function NoRecentTerms() {
-  return (
-    <Callout style={{ width: "100%" }} title="No recent terms">
-      To view paper snippets search for term below or click on one of the known
-      terms in the left panel.
-    </Callout>
-  );
-}
-
-function RecentTerms(props) {
-  const { terms } = props;
-  return (
-    <Card className="recent-terms-container" elevation={1}>
-      {terms.length > 0 ? (
-        terms.map((term, i) => {
-          return <TermCard term={term} key={i} width="15%" />;
-        })
-      ) : (
-        <NoRecentTerms />
-      )}
-    </Card>
-  );
-}
-
 function PageSnippets() {
-  const { state } = useContext(AppContext);
-  const { docid, snippet_term } = state;
+  const { state, runAction } = useContext<appCTX>(AppContext);
+  const { docid, snippet_term }: Partial<stateCTX> = state;
 
   const [loading, setLoading] = useState(false);
   const [term, setTerm] = useState(snippet_term);
   const [snippets, setSnippets] = useState(null);
-  const [recentTerms, setRecentTerms] = useState([]);
   const [searchTerm, setSearchTerm] = useState(null);
-
-  const addRecentTerm = (term) => {
-    setSearchTerm(term);
-    let terms = new Set([...recentTerms, term]);
-    terms = [...terms];
-    console.log(terms);
-    if (terms.length > 12) {
-      terms.shift();
-      setRecentTerms(terms);
-    }
-    {
-      setRecentTerms(terms);
-    }
-  };
 
   const onClick = async (snippets_term = term) => {
     if (snippets_term == "") {
       setSnippets(null);
     } else {
-      addRecentTerm(snippets_term);
+      runAction({
+        type: "add_recent_term",
+        payload: { snippet_term: snippets_term },
+      });
+      setSearchTerm(snippets_term);
       setLoading(true);
       let data = await getSnippets({ docid, snippets_term });
       setSnippets(data);
@@ -188,7 +153,6 @@ function PageSnippets() {
   useEffect(() => {
     setTerm("");
     setSnippets(null);
-    setRecentTerms([]);
   }, [docid]);
 
   const onChange = (e) => {
@@ -197,9 +161,9 @@ function PageSnippets() {
 
   return (
     <div className="snippets-container">
-      <RecentTerms terms={recentTerms} />
       <h2 style={{ marginBottom: "5px" }}>Paper Snippets</h2>
       <SearchBar
+        style={{ flex: "0", width: "100%" }}
         initiateSearch={onClick}
         inputValue={term}
         placeholder="Search paper snippets by term"

@@ -18,7 +18,9 @@ function LinkingPage() {
             <LinkageBin />
             <LinkedTerms />
           </div>
-          <PageSnippets />
+          <div className="end">
+            <PageSnippets />
+          </div>
         </div>
       </div>
     </div>
