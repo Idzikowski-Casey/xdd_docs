@@ -3,7 +3,6 @@ import { LinkingPage } from "./linking-page";
 import { LandingSearch } from "./search";
 export * from "./context";
 import { AppContext } from ".";
-import "./pages.styl";
 
 function AppPages() {
   const { state } = useContext(AppContext);

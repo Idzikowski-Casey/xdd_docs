@@ -7,7 +7,7 @@ function App() {
     <div>
       <Head>
         <title>xDD Term Linkage</title>
-        <link rel="shortcut icon" href="/static/XDD-Logo.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <AppContextProvider>
         <AppPages />

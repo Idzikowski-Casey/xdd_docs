@@ -1,9 +1,7 @@
-const withCSS = require("@zeit/next-css");
-const withStylus = require("@zeit/next-stylus");
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
 });
-const withCoffeescript = require("next-coffeescript");
+const isProd = process.env.NODE_ENV === "production";
 
 const cfg = {
   cssModules: false,
@@ -20,8 +18,8 @@ const cfg = {
     react: "node_modules/react",
     "react-dom": "node_modules/react-dom",
   },
-
+  assetPrefix: isProd ? process.env.BASE_PATH : "",
   basePath: process.env.BASE_PATH || "",
 };
 
-module.exports = withMDX(withCSS(withCoffeescript(withStylus(cfg))));
+module.exports = withMDX(cfg);

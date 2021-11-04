@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Button, Navbar } from "@blueprintjs/core";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { AppContext } from ".";
-import "./pages.styl";
 
 function BackArrow() {
   const { state, runAction } = useContext(AppContext);

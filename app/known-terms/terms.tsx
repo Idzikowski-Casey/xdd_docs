@@ -4,7 +4,6 @@ import { AppContext, appCTX, stateCTX } from "..";
 import { SearchBar } from "../search";
 import { DndChild } from "../linking-components";
 import { PanelStack } from ".";
-import "./module.styl";
 import { RecentTerms } from "./recent";
 
 function VocabHeader({ isOpen = false, title, ...rest }) {

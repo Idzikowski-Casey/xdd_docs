@@ -1,0 +1,341 @@
+@import "~@macrostrat/ui-components/lib/esm/index.css"
+@import "~@blueprintjs/core/lib/css/blueprint.css"
+@import "~@blueprintjs/popover2/lib/css/blueprint-popover2.css"
+
+li 
+  list-style: none
+
+
+h2 
+  margin: 0
+  margin-bottom: 5px
+
+
+h1,
+h4 
+  margin: 0
+  padding: 0
+
+
+body 
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+  margin: 0
+
+
+em.hl 
+  background-color: lighten(#3dcc91, 30%)
+  display: inline-block
+  padding-left: 0.2em
+  padding-right: 0.2em
+  border-radius: 0.2em
+
+
+ul 
+  list-style: none
+
+
+::-webkit-scrollbar 
+  width: 0 /* Remove scrollbar space */
+  background: transparent /* Optional: just make scrollbar invisible */
+
+$primary-dark : #314448
+
+$secondary-dark : #7c9a92
+
+$middle-hue : #c7d3bf
+
+$light-hue : #7c9a92
+
+$warning : #DB3737
+
+$success : #0F9960
+
+$white : #FFFFFF
+$black : #10161A
+
+$light-gray : #CED9E0
+$gray : #5C7080
+
+$green5:#3DCC91
+
+
+.bp3-input-group.bp3-fill
+    flex: 0
+    width: 100%
+
+.landing-search, .linking-page
+    color: $primary-dark
+    display: flex 
+    flex-direction:  column
+    justify-content: center
+    max-height: 100vh
+    min-width: 100vw
+    margin-top: 10px
+
+.landing-search  
+    padding: 0 8em
+
+.xdd-title, .xdd-subtitle
+    margin-left: 20px
+
+.xdd-title
+    font-size: 70px
+    letter-spacing: 4px
+
+.xdd-subtitle
+    text-transform: uppercase
+    letter-spacing:  3px
+    font-size: 15px
+    margin-bottom: 5px
+
+.paper-title
+    font-size: 25px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+    width: 70vw
+
+
+.list-container
+    margin-top: 15px
+    display: flex
+    align-items: center
+    flex-direction: column
+    overflow-y: auto
+
+.tall
+    height: 90vh
+.short
+    height: 40vh
+
+.pubcard, .snippet-card
+    color: $primary-dark
+    display: flex
+    margin-top: 10px
+.snippet-card
+    width: 93%
+.pubcard
+    width: 80vw
+    &:hover
+        color: $secondary-dark
+
+.paper-meta
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.pub-title
+    font-weight: bold
+    width: 65vw
+    font-size: 18px
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
+.journal, .doi
+    color: $gray
+    font-style: italic
+
+.list 
+    list-style: none
+    margin: 0
+    margin-bottom: 15px
+    padding: 0
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.page-container
+    display: flex
+    overflow: hidden
+    position: relative
+
+/// some animations for hiding and sliding the pages
+.visable
+    opacity: 1
+    transition: .6s margin ease, .4s opacity ease
+.visable-opacity
+    opacity: 1
+    transition: .4s opacity ease .1s, .1s margin ease 
+
+.hidden-left
+    position: absolute
+    margin-top: 100%
+    opacity: 0
+    transition: .4s opacity ease, .1s margin ease .4s
+ 
+.hidden-right
+    position: absolute
+    margin: 0 0 0 100%
+    transition: .6s margin ease
+
+.known-terms,
+.snippets-container 
+    display: flex
+    flex-direction: column
+    margin-left: 10px
+
+
+.known-terms
+    width: 35vw
+
+.snippets-container
+    width: 42vw
+    height: 86vh
+    margin-bottom: 5px
+    flex-basis: 100%
+
+
+.known-terms-list
+    overflow-y: auto
+    height: 75vh
+
+.collapse-body
+    max-height: 150px
+    align-items: start
+    width: 80%
+    overflow-y: auto
+
+.collapse-panel
+    padding: 0
+    margin: 0
+    margin-bottom: 10px
+
+.term-tag
+    background-color: $secondary-dark
+    color: $white
+    width: 90%
+    text-align: center
+    margin: 5px
+    &:hover
+        cursor: pointer
+        background-color: $middle-hue
+
+
+.linking-page
+    margin-top: 45px
+
+.page-content
+    display: flex
+    justify-content: space-between
+    margin-top: 20px
+
+.linked 
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    padding-top:10px
+
+
+.left 
+    width: 70vw
+    display: flex
+
+.end
+    padding-top: 10px
+    margin-right: 20px
+
+.linkage-bin
+    height: 40vh
+    padding: 5px
+    
+.linked-terms-container,
+.linkage-bin
+    width: 20vw
+    background-color: white
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+.linked-terms-container
+    height: 30vh
+    overflow: auto
+    padding: 5px
+    margin-bottom: 10px
+
+.link-terms
+    width: 100%
+
+.drag-child
+    width: 100%
+    margin: 0
+    padding: 0
+
+.link-term-tag
+    background-color: $secondary-dark
+    color: $white
+    width: 90%
+    text-align: center
+    margin: 5px
+    &:hover
+        cursor: pointer
+        background-color: $middle-hue
+
+.non-ideal-state
+    color: $gray
+
+.known-terms 
+    padding: 10px
+    display: flex
+    flex-direction: column
+    margin-left: 10px
+
+
+.known-terms
+    width: 35vw
+
+.list-container
+    margin-top: 15px
+    display: flex
+    align-items: center
+    flex-direction: column
+    overflow-y: auto
+
+.list 
+    list-style: none
+    margin: 0
+    margin-bottom: 15px
+    padding: 0
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.collapse-body
+    max-height: 150px
+    align-items: start
+    width: 80%
+    overflow-y: auto
+
+.term-tag
+    background-color: $secondary-dark
+    color: $white
+    width: 90%
+    text-align: center
+    margin: 5px
+    &:hover
+        cursor: pointer
+        background-color: $middle-hue
+
+.terms-stack 
+    height: 70vh
+    width: 100%
+
+.half-tag 
+    width: 40%
+
+
+.terms-container 
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-around
+    overflow-y: auto
+
+
+.recent-terms-container
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    padding:2px
+    height: 85px
+    margin-bottom: 11px

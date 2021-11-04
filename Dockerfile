@@ -10,9 +10,10 @@ RUN npm install
 
 COPY . .
 
+ENV BASE_PATH=/xdd-linking
+
 RUN npm run build
 WORKDIR /app/
 
-ENV BASE_PATH="/xdd-linking"
 
 ENTRYPOINT ["npm", "start"]

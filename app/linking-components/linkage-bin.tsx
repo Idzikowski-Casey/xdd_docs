@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 import { TermCard } from "../known-terms/terms";
 import { DndContainer } from "./drag";
 import { AppContext, appCTX } from "..";
-import "./module.styl";
 
 function DefaultFill() {
   let title = `Drag and drop terms to link`;

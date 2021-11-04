@@ -1,5 +1,4 @@
 import React from "react";
-import "./module.styl";
 
 export function DndContainer(props) {
   const {

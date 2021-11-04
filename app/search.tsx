@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { InputGroup, Button, Card, Icon, Spinner } from "@blueprintjs/core";
 import axios from "axios";
 import { NoResults, DefaultCallout } from "./snippets";
-import "./pages.styl";
 import { AppContext } from ".";
 
 function extractDoi(identifier) {
