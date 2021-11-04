@@ -10,10 +10,8 @@ RUN npm install
 
 COPY . .
 
-ENV BASE_PATH=/xdd-linking
-
-RUN npm run build
-WORKDIR /app/
+RUN next build && next export
+WORKDIR /app/out
 
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npx", "serve"]
