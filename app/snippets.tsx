@@ -9,6 +9,7 @@ const route = "https://xdd.wisc.edu/api/snippets";
 export function NoResults() {
   return (
     <Callout
+      data-testid="no-results-callout"
       intent="danger"
       style={{ width: "95%" }}
       title="No Results"
@@ -21,6 +22,7 @@ export function NoResults() {
 export function DefaultCallout({ title, description }) {
   return (
     <Callout
+      data-testid="default-callout"
       intent="primary"
       title={title}
       style={{

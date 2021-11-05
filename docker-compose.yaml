@@ -3,6 +3,6 @@ services:
   frontend:
     build: .
     ports:
-      - "1235:5000"
-    # environment:
-    #   - BASE_PATH=/xdd-linking
+      - "1235:3000"
+    environment:
+      - BASE_PATH=/xdd-linking

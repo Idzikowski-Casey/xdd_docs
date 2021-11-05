@@ -196,4 +196,4 @@ function LandingSearch() {
   );
 }
 
-export { LandingSearch, SearchBar };
+export { LandingSearch, SearchBar, ListRenderer, PubCard, extractDoi };

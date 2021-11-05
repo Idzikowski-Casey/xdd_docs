@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@blueprintjs/core": "^3.19.1",
@@ -25,11 +26,17 @@
     "stylus": "^0.54.7"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^12.1.2",
     "@types/node": "^13.13.0",
     "@types/react": "^16.9.34",
+    "babel-jest": "^27.3.1",
     "bulk": "^2.0.1",
     "concurrently": "^5.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.3.1",
     "linklocal": "^2.8.2",
+    "react-test-renderer": "^17.0.2",
     "typescript": "^4.3.2"
   }
 }
